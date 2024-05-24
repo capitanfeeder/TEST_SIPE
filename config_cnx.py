@@ -9,7 +9,7 @@ load_dotenv("cred.env")
 def get_connection():
     conexion = mysql.connector.connect(
         host=os.getenv("HOST"),
-        port=int(os.getenv("PORT").strip(',')),
+        port=3306,
         user=os.getenv("USER"),
         password=os.getenv("PASSWORD"),
         database=os.getenv("DATABASE")
