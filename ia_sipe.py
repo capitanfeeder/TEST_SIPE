@@ -1,14 +1,11 @@
 from openai import OpenAI
 import mysql.connector
 import pandas as pd
-from pandas import json_normalize
-import time
-from threading import Thread
 import json
 import os
 import re
 from dotenv import load_dotenv
-from db_schema import sql10708993
+from db_schema import db_sipe
 from config_cnx import get_connection
 
 load_dotenv("cred.env")
@@ -16,21 +13,46 @@ load_dotenv("cred.env")
 # Conexion a openai
 client = OpenAI(api_key=os.environ.get("api_key"))
 
+# Función para obtener consultas predefinidas desde el archivo Excel
+def get_predefined_queries_from_excel():
+    archivo = "registro/consultas_correctas.xlsx"
+    if not os.path.isfile(archivo):
+        return {}
+
+    df = pd.read_excel(archivo)
+    predefined_queries = {}
+    for index, row in df.iterrows():
+        predefined_queries[row['Pregunta'].lower()] = row['Consulta']
+
+    return predefined_queries
+
 # Funcion para generar la consulta SQL
 def generate_query(question, db_sipe):
+    # Obtener las consultas predefinidas desde el archivo Excel
+    predefined_queries = get_predefined_queries_from_excel()
+
+    # Verificar si la pregunta coincide con alguna de las consultas predefinidas
+    for predefined_question, predefined_query in predefined_queries.items():
+        if predefined_question in question.lower():
+            return predefined_query.strip()
+
+    # Si no hay coincidencias, generar la consulta con OpenAI
     chat_completion = client.chat.completions.create(
         messages=[
             {
                 "role": "system",
-                "content": (
-                    f"Use the following database to generate an SQL query that answers the question: {json.dumps(sql10708993)}. "
-                    f"The question is: {question}. You must return ONLY the SQL query without any other text. "
-                    "Otherwise, I will not be able to interpret the response. Additionally, if you receive ambiguous requests "
-                    "such as: 'Show me the seniority' or 'Show me the juniors', you should understand that the request is for "
-                    "an SQL query that returns the relevant records. When seniority or hierarchy is mentioned, it refers to "
-                    "Trainee, Junior, Semisenior, and Senior levels. If I ask for a list of employees, the query must include "
-                    "last_name and name, as well as any other information I request about them."
-                ),
+                "content": f"""
+                    Use the following database schema to generate an SQL query that answers the question:
+                    {json.dumps(db_sipe)}.
+                    The question is: {question}. You must return ONLY the SQL query without any other text.
+                    Otherwise, I will not be able to interpret the response. Additionally, if you receive ambiguous requests
+                    such as: 'Show me the seniority' or 'Show me the juniors', you should understand that the request is for
+                    an SQL query that returns the relevant records. When seniority or hierarchy is mentioned, it refers to
+                    Trainee, Junior, Semisenior, and Senior levels. If I ask for a list of employees, the query must include
+                    last_name and name, as well as any other information I request about them. Answer only those questions
+                    related to the SIPE database. Keep in mind that the database structure in dictionary format with key-value
+                    pairs is in db_sipe. You have the tables with their respective columns.
+                """
             }
         ],
         model="gpt-4",
@@ -63,7 +85,6 @@ def execute_query(sql_query):
     except mysql.connector.Error as error:
         print(f"Error al ejecutar la consulta: {error}")
         return json.dumps({"error": str(error)})
-
 
 # Funcion para crear una respuesta a la pregunta
 def transform_response(question, result_json):

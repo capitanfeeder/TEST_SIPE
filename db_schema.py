@@ -1,280 +1,324 @@
 # Diccionario SIPE
-sql10708993 = {
+db_sipe = {
     "address": {
-        "id": "BIGINT PK AI NOT NULL (Identificador único de la dirección)",
-        "department": "VARCHAR(255) (Departamento de la dirección)",
-        "floor": "VARCHAR(255) (Piso de la dirección)",
-        "number": "VARCHAR(255) (Número de la dirección)",
-        "street": "VARCHAR(255) (Calle de la dirección)",
-        "locality_id": "BIGINT FK (Identificador de la localidad a la que pertenece la dirección)"
-    },
+        "id": "BIGINT PK AI NOT NULL (Unique identifier of the address)",
+        "department": "VARCHAR(255) (Department of the address)",
+        "floor": "VARCHAR(255) (Floor of the address)",
+        "number": "VARCHAR(255) (Number of the address)",
+        "street": "VARCHAR(255) (Street of the address)",
+        "locality_id": "BIGINT FK (Identifier of the locality to which the address belongs)"
+    }
+    ,
     "country": {
-        "id": "BIGINT PK AI NOT NULL (Identificador único del país)",
-        "name": "VARCHAR(255) (Nombre del país)"
+        "id": "BIGINT PK AI NOT NULL (Unique identifier of the country)",
+        "name": "VARCHAR(255) (Name of the country)"
     },
     "evaluation": {
-        "id": "BIGINT PK AI NOT NULL (Identificador único de la evaluación)",
-        "evaluator_id": "BIGINT (Identificador del evaluador)",
-        "hard_objective_result": "INTEGER NOT NULL (Resultado del objetivo duro de la evaluación)",
-        "observation": "VARCHAR(255) (Observaciones de la evaluación)",
-        "soft_objective_result": "INTEGER NOT NULL (Resultado del objetivo blando de la evaluación)",
-        "technology_result": "INTEGER NOT NULL (Resultado de la evaluación de tecnología)"
+        "id": "BIGINT PK AI NOT NULL (Unique identifier of the evaluation)",
+        "evaluator_id": "BIGINT (Identifier of the evaluator)",
+        "hard_objective_result": "INTEGER NOT NULL (Result of the hard objective of the evaluation)",
+        "observation": "VARCHAR(255) (Observations of the evaluation)",
+        "soft_objective_result": "INTEGER NOT NULL (Result of the soft objective of the evaluation)",
+        "technology_result": "INTEGER NOT NULL (Result of the technology evaluation)"
     },
+
     "evaluation_control": {
-        "id": "BIGINT PK AI NOT NULL (Identificador único del control de evaluación)",
-        "evaluation_date": "DATETIME(6) (Fecha de la evaluación)",
-        "response_date": "DATETIME(6) (Fecha de respuesta de la evaluación)",
-        "scheduled_date": "DATETIME(6) (Fecha programada de la evaluación)",
-        "evaluation_id": "BIGINT FK (Identificador de la evaluación asociada al control)",
-        "evaluation_state_id": "BIGINT FK (Identificador del estado de la evaluación)",
-        "person_profile_team_id": "BIGINT FK (Identificador del perfil de persona del equipo asociado al control)"
+        "id": "BIGINT PK AI NOT NULL (Unique identifier of the evaluation control)",
+        "evaluation_date": "DATETIME(6) (Date of the evaluation)",
+        "response_date": "DATETIME(6) (Response date of the evaluation)",
+        "scheduled_date": "DATETIME(6) (Scheduled date of the evaluation)",
+        "evaluation_id": "BIGINT FK (Identifier of the evaluation associated with the control)",
+        "evaluation_state_id": "BIGINT FK (Identifier of the evaluation state)",
+        "person_profile_team_id": "BIGINT FK (Identifier of the person profile of the team associated with the control)"
     },
+
     "evaluation_control_notification": {
-        "id": "BIGINT PK AI NOT NULL (Identificador único de la notificación del control de evaluación)",
-        "evaluation_control_id": "BIGINT FK (Identificador del control de evaluación asociado a la notificación)",
-        "notification_id": "BIGINT FK (Identificador de la notificación asociada al control)"
+        "id": "BIGINT PK AI NOT NULL (Unique identifier of the evaluation control notification)",
+        "evaluation_control_id": "BIGINT FK (Identifier of the evaluation control associated with the notification)",
+        "notification_id": "BIGINT FK (Identifier of the notification associated with the control)"
     },
+
     "evaluation_control_user": {
-        "id": "BIGINT PK AI NOT NULL (Identificador único del usuario del control de evaluación)",
-        "evaluation_control_id": "BIGINT FK (Identificador del control de evaluación asociado al usuario)",
-        "user_id": "BIGINT FK (Identificador del usuario asociado al control)"
+        "id": "BIGINT PK AI NOT NULL (Unique identifier of the user of the evaluation control)",
+        "evaluation_control_id": "BIGINT FK (Identifier of the evaluation control associated with the user)",
+        "user_id": "BIGINT FK (Identifier of the user associated with the control)"
     },
+
     "evaluation_evaluation_technology": {
-        "id": "BIGINT PK AI NOT NULL (Identificador único de la evaluación de tecnología)",
-        "percentage": "INTEGER NOT NULL (Porcentaje de la evaluación de tecnología)",
-        "evaluation_id": "BIGINT FK (Identificador de la evaluación asociada a la evaluación de tecnología)",
-        "evaluation_technology_id": "BIGINT FK (Identificador de la tecnología evaluada)"
+        "id": "BIGINT PK AI NOT NULL (Unique identifier of the technology evaluation)",
+        "percentage": "INTEGER NOT NULL (Percentage of the technology evaluation)",
+        "evaluation_id": "BIGINT FK (Identifier of the evaluation associated with the technology evaluation)",
+        "evaluation_technology_id": "BIGINT FK (Identifier of the evaluated technology)"
     },
+
     "evaluation_hard_objetive": {
-        "id": "BIGINT PK AI NOT NULL (Identificador único del objetivo duro de la evaluación)",
-        "percentage": "INTEGER NOT NULL (Porcentaje del objetivo duro de la evaluación)",
-        "evaluation_id": "BIGINT FK (Identificador de la evaluación asociada al objetivo duro)",
-        "hard_objective_id": "BIGINT FK (Identificador del objetivo duro)"
+        "id": "BIGINT PK AI NOT NULL (Unique identifier of the hard objective of the evaluation)",
+        "percentage": "INTEGER NOT NULL (Percentage of the hard objective of the evaluation)",
+        "evaluation_id": "BIGINT FK (Identifier of the evaluation associated with the hard objective)",
+        "hard_objective_id": "BIGINT FK (Identifier of the hard objective)"
     },
+
     "evaluation_period": {
-        "id": "BIGINT PK AI NOT NULL (Identificador único del período de evaluación)",
-        "anticipation_period": "INTEGER (Período de anticipación de la evaluación)",
-        "period_days": "INTEGER (Días del período de evaluación)"
+        "id": "BIGINT PK AI NOT NULL (Unique identifier of the evaluation period)",
+        "anticipation_period": "INTEGER (Period of anticipation of the evaluation)",
+        "period_days": "INTEGER (Days of the evaluation period)"
     },
+
     "evaluation_soft_objetive": {
-        "id": "BIGINT PK AI NOT NULL (Identificador único del objetivo blando de la evaluación)",
-        "percentage": "INTEGER NOT NULL (Porcentaje del objetivo blando de la evaluación)",
-        "evaluation_id": "BIGINT FK (Identificador de la evaluación asociada al objetivo blando)",
-        "soft_objective_id": "BIGINT FK (Identificador del objetivo blando)"
+        "id": "BIGINT PK AI NOT NULL (Unique identifier of the soft objective of the evaluation)",
+        "percentage": "INTEGER NOT NULL (Percentage of the soft objective of the evaluation)",
+        "evaluation_id": "BIGINT FK (Identifier of the evaluation associated with the soft objective)",
+        "soft_objective_id": "BIGINT FK (Identifier of the soft objective)"
     },
+
     "evaluation_state": {
-        "id": "BIGINT PK AI NOT NULL (Identificador único del estado de la evaluación)",
-        "description": "VARCHAR(255) (Descripción del estado de la evaluación)",
-        "name": "VARCHAR(255) (Nombre del estado de la evaluación)"
+        "id": "BIGINT PK AI NOT NULL (Unique identifier of the evaluation state)",
+        "description": "VARCHAR(255) (Description of the evaluation state)",
+        "name": "VARCHAR(255) (Name of the evaluation state)"
     },
+
     "evaluation_technology": {
-        "id": "BIGINT PK AI NOT NULL (Identificador único de la tecnología evaluada)",
-        "description": "VARCHAR(255) (Descripción de la tecnología evaluada)",
-        "name": "VARCHAR(255) (Nombre de la tecnología evaluada)"
+        "id": "BIGINT PK AI NOT NULL (Unique identifier of the evaluated technology)",
+        "description": "VARCHAR(255) (Description of the evaluated technology)",
+        "name": "VARCHAR(255) (Name of the evaluated technology)"
     },
+
     "hard_objective": {
-        "id": "BIGINT PK AI NOT NULL (Identificador único del objetivo duro)",
-        "description": "VARCHAR(255) (Descripción del objetivo duro)",
-        "name": "VARCHAR(255) (Nombre del objetivo duro)"
+        "id": "BIGINT PK AI NOT NULL (Unique identifier of the hard objective)",
+        "description": "VARCHAR(255) (Description of the hard objective)",
+        "name": "VARCHAR(255) (Name of the hard objective)"
     },
+
     "identification_type": {
-        "id": "BIGINT PK AI NOT NULL (Identificador único del tipo de identificación)",
-        "name": "VARCHAR(255) (Nombre del tipo de identificación)"
+        "id": "BIGINT PK AI NOT NULL (Unique identifier of the identification type)",
+        "name": "VARCHAR(255) (Name of the identification type)"
     },
+
     "language": {
-        "id": "BIGINT PK AI NOT NULL (Identificador único del idioma)",
-        "name": "VARCHAR(255) (Nombre del idioma)"
+        "id": "BIGINT PK AI NOT NULL (Unique identifier of the language)",
+        "name": "VARCHAR(255) (Name of the language)"
     },
     "language_level": {
-        "id": "BIGINT PK AI NOT NULL (Identificador único del nivel de idioma)",
-        "name": "VARCHAR(255) (Nombre del nivel de idioma)"
+        "id": "BIGINT PK AI NOT NULL (Unique identifier of the language level)",
+        "name": "VARCHAR(255) (Name of the language level)"
     },
+
     "locality": {
-        "id": "BIGINT PK AI NOT NULL (Identificador único de la localidad)",
-        "name": "VARCHAR(255) (Nombre de la localidad)",
-        "province_id": "BIGINT FK (Identificador de la provincia a la que pertenece la localidad)"
+        "id": "BIGINT PK AI NOT NULL (Unique identifier of the locality)",
+        "name": "VARCHAR(255) (Name of the locality)",
+        "province_id": "BIGINT FK (Identifier of the province to which the locality belongs)"
     },
+
     "methodology": {
-        "id": "BIGINT PK AI NOT NULL (Identificador único de la metodología)",
-        "description": "VARCHAR(255) (Descripción de la metodología)",
-        "name": "VARCHAR(255) (Nombre de la metodología)"
+        "id": "BIGINT PK AI NOT NULL (Unique identifier of the methodology)",
+        "description": "VARCHAR(255) (Description of the methodology)",
+        "name": "VARCHAR(255) (Name of the methodology)"
     },
+
     "notification": {
-        "id": "BIGINT PK AI NOT NULL (Identificador único de la notificación)",
-        "date": "DATETIME(6) (Fecha de la notificación)",
-        "subject": "VARCHAR(255) (Asunto de la notificación)",
-        "text": "VARCHAR(255) (Texto de la notificación)",
-        "type": "VARCHAR(255) (Tipo de notificación)",
-        "person_profile_id": "BIGINT FK (Identificador del perfil de persona asociado a la notificación)"
+        "id": "BIGINT PK AI NOT NULL (Unique identifier of the notification)",
+        "date": "DATETIME(6) (Date of the notification)",
+        "subject": "VARCHAR(255) (Subject of the notification)",
+        "text": "VARCHAR(255) (Text of the notification)",
+        "type": "VARCHAR(255) (Type of notification)",
+        "person_profile_id": "BIGINT FK (Identifier of the person profile associated with the notification)"
     },
+
     "permission": {
-        "id": "BIGINT PK AI NOT NULL (Identificador único del permiso)",
-        "permission": "VARCHAR(255) (Nombre del permiso)"
+        "id": "BIGINT PK AI NOT NULL (Unique identifier of the permission)",
+        "permission": "VARCHAR(255) (Name of the permission)"
     },
+
     "person": {
-        "id": "BIGINT PK AI NOT NULL (Identificador único de la persona)",
-        "admission_date": "DATETIME(6) (Fecha de ingreso de la persona)",
-        "allotted_time": "INTEGER NOT NULL (Tiempo asignado a la persona)",
-        "cc_code": "VARCHAR(255) (Código de área de la persona)",
-        "cuil_cuit": "VARCHAR(255) (CUIL/CUIT de la persona)",
-        "egress_date": "DATETIME(6) (Fecha de egreso de la persona)",
-        "email": "VARCHAR(255) (Correo electrónico de la persona)",
-        "file_number": "VARCHAR(255) (Número de legajo de la persona)",
-        "identification": "VARCHAR(255) (Número de identificación de la persona)",
-        "last_name": "VARCHAR(255) (Apellido de la persona)",
-        "name": "VARCHAR(255) (Nombre de la persona)",
-        "status": "BIT (Estado de la persona)",
-        "total_active_days": "INTEGER NOT NULL (Días activos de la persona)",
-        "address_id": "BIGINT FK (Identificador de la dirección asociada a la persona)",
-        "identification_type_id": "BIGINT FK (Identificador del tipo de identificación asociado a la persona)",
-        "user_id": "BIGINT FK (Identificador del usuario asociado a la persona)"
+        "id": "BIGINT PK AI NOT NULL (Unique identifier of the person)",
+        "admission_date": "DATETIME(6) (Date of admission of the person)",
+        "allotted_time": "INTEGER NOT NULL (Time allotted to the person)",
+        "cc_code": "VARCHAR(255) (Area code of the person)",
+        "cuil_cuit": "VARCHAR(255) (CUIL/CUIT of the person)",
+        "egress_date": "DATETIME(6) (Date of egress of the person)",
+        "email": "VARCHAR(255) (Email of the person)",
+        "file_number": "VARCHAR(255) (File number of the person)",
+        "identification": "VARCHAR(255) (Identification number of the person)",
+        "last_name": "VARCHAR(255) (Last name of the person)",
+        "name": "VARCHAR(255) (Name of the person)",
+        "status": "BIT (Status of the person)",
+        "total_active_days": "INTEGER NOT NULL (Total active days of the person)",
+        "address_id": "BIGINT FK (Identifier of the address associated with the person)",
+        "identification_type_id": "BIGINT FK (Identifier of the identification type associated with the person)",
+        "user_id": "BIGINT FK (Identifier of the user associated with the person)"
     },
+
     "person_person_technology": {
-        "person_id": "BIGINT FK (Identificador de la persona asociada a la tecnología)",
-        "person_technology_id": "BIGINT FK (Identificador de la tecnología asociada a la persona)"
+        "person_id": "BIGINT FK (Identifier of the person associated with the technology)",
+        "person_technology_id": "BIGINT FK (Identifier of the technology associated with the person)"
     },
+
     "person_language": {
-        "id": "BIGINT PK AI NOT NULL (Identificador único del idioma de la persona)",
-        "language_id": "BIGINT FK (Identificador del idioma asociado a la persona)",
-        "language_level_id": "BIGINT FK (Identificador del nivel de idioma asociado a la persona)",
-        "person_id": "BIGINT FK (Identificador de la persona asociada al idioma)"
+        "id": "BIGINT PK AI NOT NULL (Unique identifier of the language of the person)",
+        "language_id": "BIGINT FK (Identifier of the language associated with the person)",
+        "language_level_id": "BIGINT FK (Identifier of the language level associated with the person)",
+        "person_id": "BIGINT FK (Identifier of the person associated with the language)"
     },
+
     "person_profile": {
-        "id": "BIGINT PK AI NOT NULL (Identificador único del perfil de persona)",
-        "status": "BIT (Estado del perfil de persona)",
-        "person_id": "BIGINT FK (Identificador de la persona asociada al perfil)",
-        "profile_id": "BIGINT FK (Identificador del perfil asociado a la persona)"
+        "id": "BIGINT PK AI NOT NULL (Unique identifier of the person profile)",
+        "status": "BIT (Status of the person profile)",
+        "person_id": "BIGINT FK (Identifier of the person associated with the profile)",
+        "profile_id": "BIGINT FK (Identifier of the profile associated with the person)"
     },
+
     "person_profile_team": {
-        "id": "BIGINT PK AI NOT NULL (Identificador único del perfil de persona del equipo)",
-        "dedication": "INTEGER (Dedicación del perfil de persona del equipo)",
-        "team_entry_date": "DATETIME(6) (Fecha de ingreso al equipo del perfil de persona)",
-        "team_exit_date": "DATETIME(6) (Fecha de egreso del equipo del perfil de persona)",
-        "person_profile_id": "BIGINT FK (Identificador del perfil de persona asociado al equipo)",
-        "team_id": "BIGINT FK (Identificador del equipo asociado al perfil de persona)"
+        "id": "BIGINT PK AI NOT NULL (Unique identifier of the person profile of the team)",
+        "dedication": "INTEGER (Dedication of the person profile of the team)",
+        "team_entry_date": "DATETIME(6) (Date of entry to the team of the person profile)",
+        "team_exit_date": "DATETIME(6) (Date of exit from the team of the person profile)",
+        "person_profile_id": "BIGINT FK (Identifier of the person profile associated with the team)",
+        "team_id": "BIGINT FK (Identifier of the team associated with the person profile)"
     },
+
     "person_technology": {
-        "id": "BIGINT PK AI NOT NULL (Identificador único de la tecnología de la persona)",
-        "description": "VARCHAR(255) (Descripción de la tecnología de la persona)",
-        "name": "VARCHAR(255) (Nombre de la tecnología de la persona)"
+        "id": "BIGINT PK AI NOT NULL (Unique identifier of the technology of the person)",
+        "description": "VARCHAR(255) (Description of the technology of the person)",
+        "name": "VARCHAR(255) (Name of the technology of the person)"
     },
+
     "profession": {
-        "id": "BIGINT PK AI NOT NULL (Identificador único de la profesión)",
-        "description": "VARCHAR(255) (Descripción de la profesión)",
-        "name": "VARCHAR(255) (Nombre de la profesión)"
+        "id": "BIGINT PK AI NOT NULL (Unique identifier of the profession)",
+        "description": "VARCHAR(255) (Description of the profession)",
+        "name": "VARCHAR(255) (Name of the profession)"
     },
+
     "profile": {
-        "id": "BIGINT PK AI NOT NULL (Identificador único del perfil)",
-        "description": "VARCHAR(255) (Descripción del perfil)",
-        "name": "VARCHAR(255) (Nombre del perfil)",
-        "profession_id": "BIGINT FK (Identificador de la profesión asociada al perfil)",
-        "seniority_id": "BIGINT FK (Identificador de la antigüedad asociada al perfil)",
-        "speciality_id": "BIGINT FK (Identificador de la especialidad asociada al perfil)"
+        "id": "BIGINT PK AI NOT NULL (Unique identifier of the profile)",
+        "description": "VARCHAR(255) (Description of the profile)",
+        "name": "VARCHAR(255) (Name of the profile)",
+        "profession_id": "BIGINT FK (Identifier of the profession associated with the profile)",
+        "seniority_id": "BIGINT FK (Identifier of the seniority associated with the profile)",
+        "speciality_id": "BIGINT FK (Identifier of the specialty associated with the profile)"
     },
+
     "project": {
-        "id": "BIGINT PK AI NOT NULL (Identificador único del proyecto)",
-        "description": "VARCHAR(255) (Descripción del proyecto)",
-        "end_date": "DATETIME(6) (Fecha de finalización del proyecto)",
-        "name": "VARCHAR(255) (Nombre del proyecto)",
-        "project_leader_id": "BIGINT (Identificador del líder del proyecto)",
-        "start_date": "DATETIME(6) (Fecha de inicio del proyecto)",
-        "supervisor_code": "VARCHAR(255) (Código del supervisor del proyecto)",
-        "methodology_id": "BIGINT FK (Identificador de la metodología asociada al proyecto)",
-        "project_difficulty_id": "BIGINT FK (Identificador de la dificultad del proyecto)",
-        "project_status_id": "BIGINT FK (Identificador del estado del proyecto)"
+        "id": "BIGINT PK AI NOT NULL (Unique identifier of the project)",
+        "description": "VARCHAR(255) (Description of the project)",
+        "end_date": "DATETIME(6) (End date of the project)",
+        "name": "VARCHAR(255) (Name of the project)",
+        "project_leader_id": "BIGINT (Identifier of the leader of the project)",
+        "start_date": "DATETIME(6) (Start date of the project)",
+        "supervisor_code": "VARCHAR(255) (Code of the supervisor of the project)",
+        "methodology_id": "BIGINT FK (Identifier of the methodology associated with the project)",
+        "project_difficulty_id": "BIGINT FK (Identifier of the difficulty of the project)",
+        "project_status_id": "BIGINT FK (Identifier of the status of the project)"
     },
     "project_project_technology": {
-        "project_id": "BIGINT FK (Identificador del proyecto asociado a la tecnología)",
-        "project_technology_id": "BIGINT FK (Identificador de la tecnología asociada al proyecto)"
+        "project_id": "BIGINT FK (Project identifier associated with the technology)",
+        "project_technology_id": "BIGINT FK (Technology identifier associated with the project)"
     },
+
     "project_difficulty": {
-        "id": "BIGINT PK AI NOT NULL (Identificador único de la dificultad del proyecto)",
-        "name": "VARCHAR(255) (Nombre de la dificultad del proyecto)"
+        "id": "BIGINT PK AI NOT NULL (Unique identifier of the project difficulty)",
+        "name": "VARCHAR(255) (Name of the project difficulty)"
     },
+
     "project_status": {
-        "id": "BIGINT PK AI NOT NULL (Identificador único del estado del proyecto)",
-        "name": "VARCHAR(255) (Nombre del estado del proyecto)"
+        "id": "BIGINT PK AI NOT NULL (Unique identifier of the project status)",
+        "name": "VARCHAR(255) (Name of the project status)"
     },
+
     "project_technology": {
-        "id": "BIGINT PK AI NOT NULL (Identificador único de la tecnología del proyecto)",
-        "description": "VARCHAR(255) (Descripción de la tecnología del proyecto)",
-        "name": "VARCHAR(255) (Nombre de la tecnología del proyecto)"
+        "id": "BIGINT PK AI NOT NULL (Unique identifier of the project technology)",
+        "description": "VARCHAR(255) (Description of the project technology)",
+        "name": "VARCHAR(255) (Name of the project technology)"
     },
+
     "province": {
-        "id": "BIGINT PK AI NOT NULL (Identificador único de la provincia)",
-        "name": "VARCHAR(255) (Nombre de la provincia)",
-        "country_id": "BIGINT FK (Identificador del país al que pertenece la provincia)"
+        "id": "BIGINT PK AI NOT NULL (Unique identifier of the province)",
+        "name": "VARCHAR(255) (Name of the province)",
+        "country_id": "BIGINT FK (Identifier of the country to which the province belongs)"
     },
+
     "role": {
-        "id": "BIGINT PK AI NOT NULL (Identificador único del rol)",
-        "name": "VARCHAR(255) (Nombre del rol)"
+        "id": "BIGINT PK AI NOT NULL (Unique identifier of the role)",
+        "name": "VARCHAR(255) (Name of the role)"
     },
+
     "role_permissions": {
-        "role_id": "BIGINT FK (Identificador del rol asociado a los permisos)",
-        "permissions_id": "BIGINT FK (Identificador de los permisos asociados al rol)"
+        "role_id": "BIGINT FK (Identifier of the role associated with the permissions)",
+        "permissions_id": "BIGINT FK (Identifier of the permissions associated with the role)"
     },
+
     "seniority": {
-        "id": "BIGINT PK AI NOT NULL (Identificador único de la antigüedad)",
-        "description": "VARCHAR(255) (Descripción de la antigüedad)",
-        "name": "VARCHAR(255) (Nombre de la antigüedad. Contenido de la columna: Trainee, Junior, Semisenior, Senior)",
-        "evaluation_period_id": "BIGINT FK (Identificador del período de evaluación asociado a la antigüedad)"
+        "id": "BIGINT PK AI NOT NULL (Unique identifier of the seniority)",
+        "description": "VARCHAR(255) (Description of the seniority)",
+        "name": "VARCHAR(255) (Name of the seniority. Column content: Trainee, Junior, Semisenior, Senior)",
+        "evaluation_period_id": "BIGINT FK (Identifier of the evaluation period associated with the seniority)"
     },
+
     "soft_objective": {
-        "id": "BIGINT PK AI NOT NULL (Identificador único del objetivo blando)",
-        "description": "VARCHAR(255) (Descripción del objetivo blando)",
-        "name": "VARCHAR(255) (Nombre del objetivo blando)",
-        "type_id": "BIGINT FK (Identificador del tipo del objetivo blando)"
+        "id": "BIGINT PK AI NOT NULL (Unique identifier of the soft objective)",
+        "description": "VARCHAR(255) (Description of the soft objective)",
+        "name": "VARCHAR(255) (Name of the soft objective)",
+        "type_id": "BIGINT FK (Identifier of the type of the soft objective)"
     },
+
     "soft_objective_type": {
-        "id": "BIGINT PK AI NOT NULL (Identificador único del tipo del objetivo blando)",
-        "name": "VARCHAR(255) (Nombre del tipo del objetivo blando)"
+        "id": "BIGINT PK AI NOT NULL (Unique identifier of the type of the soft objective)",
+        "name": "VARCHAR(255) (Name of the type of the soft objective)"
     },
+
     "speciality": {
-        "id": "BIGINT PK AI NOT NULL (Identificador único de la especialidad)",
-        "description": "VARCHAR(255) (Descripción de la especialidad)",
-        "name": "VARCHAR(255) (Nombre de la especialidad)"
+        "id": "BIGINT PK AI NOT NULL (Unique identifier of the specialty)",
+        "description": "VARCHAR(255) (Description of the specialty)",
+        "name": "VARCHAR(255) (Name of the specialty)"
     },
+
     "team": {
-        "id": "BIGINT PK AI NOT NULL (Identificador único del equipo)",
-        "team_code": "VARCHAR(255) (Código del equipo)",
-        "project_id": "BIGINT FK (Identificador del proyecto asociado al equipo)",
-        "team_type_id": "BIGINT FK (Identificador del tipo de equipo)"
+        "id": "BIGINT PK AI NOT NULL (Unique identifier of the team)",
+        "team_code": "VARCHAR(255) (Team code)",
+        "project_id": "BIGINT FK (Identifier of the project associated with the team)",
+        "team_type_id": "BIGINT FK (Identifier of the type of team)"
     },
+
     "team_team_technology": {
-        "team_id": "BIGINT FK (Identificador del equipo asociado a la tecnología)",
-        "team_technology_id": "BIGINT FK (Identificador de la tecnología asociada al equipo)"
+        "team_id": "BIGINT FK (Identifier of the team associated with the technology)",
+        "team_technology_id": "BIGINT FK (Identifier of the technology associated with the team)"
     },
+
     "team_technology": {
-        "id": "BIGINT PK AI NOT NULL (Identificador único de la tecnología del equipo)",
-        "description": "VARCHAR(255) (Descripción de la tecnología del equipo)",
-        "name": "VARCHAR(255) (Nombre de la tecnología del equipo)"
+        "id": "BIGINT PK AI NOT NULL (Unique identifier of the team technology)",
+        "description": "VARCHAR(255) (Description of the team technology)",
+        "name": "VARCHAR(255) (Name of the team technology)"
     },
+
     "team_type": {
-        "id": "BIGINT PK AI NOT NULL (Identificador único del tipo de equipo)",
-        "description": "VARCHAR(255) (Descripción del tipo de equipo)",
-        "name": "VARCHAR(255) (Nombre del tipo de equipo)"
+        "id": "BIGINT PK AI NOT NULL (Unique identifier of the type of team)",
+        "description": "VARCHAR(255) (Description of the type of team)",
+        "name": "VARCHAR(255) (Name of the type of team)"
     },
+
     "user": {
-        "id": "BIGINT PK AI NOT NULL (Identificador único del usuario)",
-        "password": "VARCHAR(255) (Contraseña del usuario)",
-        "username": "VARCHAR(255) (Nombre de usuario)"
+        "id": "BIGINT PK AI NOT NULL (Unique identifier of the user)",
+        "password": "VARCHAR(255) (User password)",
+        "username": "VARCHAR(255) (Username)"
     },
+
     "user_role": {
-        "user_id": "BIGINT FK (Identificador del usuario asociado al rol)",
-        "role_id": "BIGINT FK (Identificador del rol asociado al usuario)"
+        "user_id": "BIGINT FK (Identifier of the user associated with the role)",
+        "role_id": "BIGINT FK (Identifier of the role associated with the user)"
     },
+
     "work_license": {
-        "id": "BIGINT PK AI NOT NULL (Identificador único de la licencia de trabajo)",
-        "days": "INTEGER NOT NULL (Días de la licencia de trabajo)",
-        "description": "VARCHAR(255) (Descripción de la licencia de trabajo)",
-        "end_date": "DATETIME(6) (Fecha de finalización de la licencia de trabajo)",
-        "start_date": "DATETIME(6) (Fecha de inicio de la licencia de trabajo)",
-        "status": "BIT (Estado de la licencia de trabajo)",
-        "person_id": "BIGINT FK (Identificador de la persona asociada a la licencia de trabajo)",
-        "work_license_type_id": "BIGINT FK (Identificador del tipo de licencia de trabajo)"
+        "id": "BIGINT PK AI NOT NULL (Unique identifier of the work license)",
+        "days": "INTEGER NOT NULL (Days of the work license)",
+        "description": "VARCHAR(255) (Description of the work license)",
+        "end_date": "DATETIME(6) (Work license end date)",
+        "start_date": "DATETIME(6) (Work license start date)",
+        "status": "BIT (Work license status)",
+        "person_id": "BIGINT FK (Identifier of the person associated with the work license)",
+        "work_license_type_id": "BIGINT FK (Identifier of the type of work license)"
     },
+
     "work_license_type": {
-        "id": "BIGINT PK AI NOT NULL (Identificador único del tipo de licencia de trabajo)",
-        "name": "VARCHAR(255) (Nombre del tipo de licencia de trabajo)"
+        "id": "BIGINT PK AI NOT NULL (Unique identifier of the type of work license)",
+        "name": "VARCHAR(255) (Name of the type of work license)"
     }
 }
