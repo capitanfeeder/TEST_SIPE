@@ -5,7 +5,7 @@ import json
 import os
 import re
 from dotenv import load_dotenv
-from db_schema import db_sipe
+from db_schema import sql10708993
 from config_cnx import get_connection
 
 load_dotenv("cred.env")
@@ -27,7 +27,7 @@ def get_predefined_queries_from_excel():
     return predefined_queries
 
 # Funcion para generar la consulta SQL
-def generate_query(question, db_sipe):
+def generate_query(question, sql10708993):
     # Obtener las consultas predefinidas desde el archivo Excel
     predefined_queries = get_predefined_queries_from_excel()
 
@@ -43,7 +43,7 @@ def generate_query(question, db_sipe):
                 "role": "system",
                 "content": f"""
                     Use the following database schema to generate an SQL query that answers the question:
-                    {json.dumps(db_sipe)}.
+                    {json.dumps(sql10708993)}.
                     The question is: {question}. You must return ONLY the SQL query without any other text.
                     Otherwise, I will not be able to interpret the response. Additionally, if you receive ambiguous requests
                     such as: 'Show me the seniority' or 'Show me the juniors', you should understand that the request is for
@@ -51,7 +51,7 @@ def generate_query(question, db_sipe):
                     Trainee, Junior, Semisenior, and Senior levels. If I ask for a list of employees, the query must include
                     last_name and name, as well as any other information I request about them. Answer only those questions
                     related to the SIPE database. Keep in mind that the database structure in dictionary format with key-value
-                    pairs is in db_sipe. You have the tables with their respective columns.
+                    pairs is in sql10708993. You have the tables with their respective columns.
                 """
             }
         ],
