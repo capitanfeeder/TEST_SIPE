@@ -1,5 +1,5 @@
 # Diccionario SIPE
-db_sipe = {
+sql10708993 = {
     "address": {
         "id": "BIGINT PK AI NOT NULL (Unique identifier of the address)",
         "department": "VARCHAR(255) (Department of the address)",
