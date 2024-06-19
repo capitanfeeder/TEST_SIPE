@@ -3,7 +3,7 @@ from openai import OpenAI
 import mysql.connector
 from ia_sipe import generate_query, execute_query, transform_response
 from config_cnx import get_connection
-from db_schema import sql10708993
+from db_schema import defaultdb
 from registro_query import guardar_consulta_correcta, guardar_consulta_error
 
 app = FastAPI()
@@ -27,7 +27,7 @@ async def sql_query(question: str):
     """
     print("Bienvenido al endpoint /sipe")
     
-    sql_query = generate_query(question, sql10708993)
+    sql_query = generate_query(question, defaultdb)
     execute = execute_query(sql_query)
 
     if "error" in execute:
