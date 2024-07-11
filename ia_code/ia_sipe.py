@@ -16,7 +16,7 @@ nltk.download('punkt')
 nltk.download('stopwords')
 
 # Cargar las variables de entorno desde el archivo .env
-dotenv_path = os.path.join(os.path.dirname(__file__), '..', 'cred.env')
+dotenv_path = os.path.join(os.path.dirname(__file__), '..', 'crede.env')
 load_dotenv(dotenv_path=dotenv_path)
 
 # Conexion a openai

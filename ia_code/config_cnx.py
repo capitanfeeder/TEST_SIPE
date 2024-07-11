@@ -4,7 +4,7 @@ from mysql.connector import MySQLConnection
 from dotenv import load_dotenv
 
 # Cargar las variables de entorno desde el archivo .env
-dotenv_path = os.path.join(os.path.dirname(__file__), '..', 'cred.env')
+dotenv_path = os.path.join(os.path.dirname(__file__), '..', 'crede.env')
 load_dotenv(dotenv_path=dotenv_path)
 
 # Establecer la conexión con la base de datos

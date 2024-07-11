@@ -11,7 +11,7 @@ warnings.filterwarnings("ignore", message="The behavior of DataFrame concatenati
 warnings.filterwarnings("ignore", message="The behavior of 'to_datetime' with 'unit' when parsing strings is deprecated. In a future version, strings will be parsed as datetime strings, matching the behavior without a 'unit'. To retain the old behavior, explicitly cast ints or floats to numeric type before calling to_datetime.")
 
 # Cargar las variables de entorno desde el archivo .env
-dotenv_path = os.path.join(os.path.dirname(__file__), '..', 'cred.env')
+dotenv_path = os.path.join(os.path.dirname(__file__), '..', 'crede.env')
 load_dotenv(dotenv_path=dotenv_path)
 
 client = OpenAI(api_key=os.environ.get("api_key"))
