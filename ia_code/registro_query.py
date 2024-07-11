@@ -5,12 +5,28 @@ import openpyxl
 from openpyxl.utils.dataframe import dataframe_to_rows
 import datetime
 
-# Función para guardar las consultas en archivos .xlsx
-def guardar_consulta_correcta(pregunta, consulta, execute):
-    data = {"Pregunta": [pregunta], "Consulta": [consulta], "Execute": [json.dumps(execute)], "Datetime": [datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')]}
+
+def guardar_consulta_correcta(pregunta: str, consulta: str, execute: dict) -> None:
+    """
+    Guarda una consulta correcta en un archivo .xlsx.
+
+    Args:
+        pregunta (str): La pregunta original realizada.
+        consulta (str): La consulta SQL generada.
+        execute (dict): El resultado de la ejecución de la consulta.
+
+    Returns:
+        None
+    """
+    data = {
+        "Pregunta": [pregunta],
+        "Consulta": [consulta],
+        "Execute": [json.dumps(execute)],
+        "Datetime": [datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')]
+    }
     df = pd.DataFrame(data)
 
-    directorio = "registro"
+    directorio = "./registro"
     if not os.path.isdir(directorio):
         os.makedirs(directorio)
 
@@ -26,7 +42,6 @@ def guardar_consulta_correcta(pregunta, consulta, execute):
 
         # Guardar el archivo Excel
         wb.save(archivo)
-
     else:
         # Abrir el archivo Excel existente y la hoja de trabajo
         wb = openpyxl.load_workbook(archivo)
@@ -43,13 +58,27 @@ def guardar_consulta_correcta(pregunta, consulta, execute):
         wb.save(archivo)
 
 
+def guardar_consulta_error(pregunta: str, consulta: str, error: str) -> None:
+    """
+    Guarda una consulta que falló en un archivo .xlsx.
 
-# Función para guardar las consultas que fallaron en archivos .xlsx
-def guardar_consulta_error(pregunta, consulta, error):
-    data = {"Pregunta": [pregunta], "Consulta": [consulta], "Error": [error], "Datetime": [datetime.datetime.now()]}
+    Args:
+        pregunta (str): La pregunta original realizada.
+        consulta (str): La consulta SQL generada.
+        error (str): El mensaje de error producido.
+
+    Returns:
+        None
+    """
+    data = {
+        "Pregunta": [pregunta],
+        "Consulta": [consulta],
+        "Error": [error],
+        "Datetime": [datetime.datetime.now()]
+    }
     df = pd.DataFrame(data)
 
-    directorio = "registro"
+    directorio = "./registro"
     if not os.path.isdir(directorio):
         os.makedirs(directorio)
 
@@ -65,7 +94,6 @@ def guardar_consulta_error(pregunta, consulta, error):
 
         # Guardar el archivo Excel
         wb.save(archivo)
-
     else:
         # Abrir el archivo Excel existente y la hoja de trabajo
         wb = openpyxl.load_workbook(archivo)

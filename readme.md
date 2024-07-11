@@ -45,5 +45,51 @@ Desde linux:
 `python main.py`
 
 
+## **Descripción General de la Funcionalidad:**
 
-## **Continuará...**
+### El proyecto ofrece dos funcionalidades principales:
+
+### 1. Responder preguntas relacionadas con RRHH convirtiéndolas en consultas SQL y consultando la base de datos SIPE (implementado en main.py).
+
+### 2. Procesar archivos Excel cargados que contienen datos de evaluación de empleados y transformarlos en un formato JSON estructurado (implementado en ia_code/load_old_eval.py).
+
+
+## **Análisis del Código:**
+
+### 1. `main.py`:
+Maneja la configuración y los puntos finales de la API.
+Brinda funcionalidades para:
+- Responder preguntas de los usuarios utilizando el punto final sql_query (llama a ia_code.ia_sipe.generate_query para generar SQL).
+- Cargar archivos Excel utilizando el punto final upload_excels.
+- Procesar archivos Excel cargados utilizando el punto final process_excel (llama a ia_code.load_old_eval.process_all_files_in_directory).
+
+### 2. `config_cnx.py`: 
+Establece conexión a la base de datos MySQL utilizando las credenciales de cred.env.
+
+### 3. `ia_sipe.py`:
+Contiene funciones para:
+- Encontrar consultas predefinidas a partir de una hoja de Excel (get_predefined_queries_from_excel).
+- Preprocesar el texto del usuario (preprocess_text).
+- Encontrar la pregunta más similar entre las predefinidas (find_most_similar_question).
+- Generar consultas SQL basadas en las preguntas del usuario (generate_query).
+- Ejecutar consultas SQL y transformar los resultados (execute_query, transform_response).
+
+### 4. `load_old_eval.py`:
+Procesa archivos Excel cargados que contienen datos de evaluación.
+Las funciones incluyen:
+- Crear un DataFrame vacío con columnas predefinidas (create_empty_dataframe).
+- Procesar datos de habilidades blandas y duras (process_skills).
+- Transformar y seleccionar filas específicas de DataFrames (process_dataframe).
+- Calcular puntajes promedio (calculate_average_score).
+- Procesar y transformar datos de habilidades, calculando sus puntajes promedio (process_and_transform_skills).
+- Procesar una hoja de Excel específica y transformar datos (process_excel_file).
+- Procesar todas las hojas en un archivo de Excel (process_all_sheets).
+- Procesar todos los archivos de Excel en un directorio (process_all_files_in_directory).
+
+### 5. `registro_query.py`:
+Administra el registro de consultas en archivos de Excel separados según el éxito o error (guardar_consulta_correcta, guardar_consulta_error).
+
+
+## **Autores:**
+- González Nehuén (Analista de Datos Jr.)
+- Sosa Gabriel (Analista de Datos Jr.)
